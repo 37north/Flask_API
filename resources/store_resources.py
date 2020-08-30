@@ -11,7 +11,7 @@ class Store(Resource):
 
     def post(self, name):
         if StoreModel.find_by_name(name):
-            return {'message': "A store with name '{}' already exists.".format(name)}, 400
+            return {'message': f"A store with name '{name}' already exists."}, 400
 
         store = StoreModel(name)
         try:
@@ -31,4 +31,4 @@ class Store(Resource):
 
 class StoreList(Resource):
     def get(self):
-        return {'stores': list(map(lambda x: x.json(), StoreModel.query.all()))}
+        return {'stores': [store.json() for store in  StoreModel.query.all()]}

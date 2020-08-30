@@ -16,9 +16,9 @@ class UserModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
+    @classmethod                                          # it means that now we are using the current class as opposed to hard coding the class name there
     def find_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
+        return cls.query.filter_by(username=username).first()  #filter_by(username_from_table=username_argument)
 
     @classmethod
     def find_by_id(cls, _id):

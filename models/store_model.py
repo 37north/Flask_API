@@ -7,7 +7,16 @@ class StoreModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
 
-    items = db.relationship('ItemModel', lazy='dynamic')
+    items = db.relationship('ItemModel', lazy='dynamic') #back reference: it allows store to see what items is in items table with 
+											#store_id = id
+											# This is a list of item models. Many to one relationship. That's why
+											# we use list comprehension in json() function
+											# when we use lazy = 'dynamic', self.items is no longer a list of items.
+											# Now it is a query builder that has the ability to look at the items table
+											# Then we can use .all() to retrieve all of the items in that table.
+											# which means that until we call json() we do not look at items table
+											# however it means that every time that we call the json method we have to
+											# go into the table, so it is gonna be slower
 
     def __init__(self, name):
         self.name = name
